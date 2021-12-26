@@ -6,8 +6,24 @@ def f(x, y):
     return -2 * y + 2 * x**2 + 2 * x
 
 
+def f1(x, y):
+    return -50 * y + 49 * math.sin(x) + 51 * math.cos(x)
+
+
+def f2(x, y):
+    return (x + 2 * x**3) * y**3 - x * y
+
+
 def y_hat(x):
     return math.exp(-2 * x) + x**2
+
+
+def y_hat1(x):
+    return math.sin(x) + math.cos(x)
+
+
+def y_hat2(x):
+    return (3 + 2 * x**2 + 6 * math.exp(x**2))**(-1 / 2)
 
 
 class Base:
@@ -87,7 +103,30 @@ class ClassicRungeKutta(Base):
 
 
 if __name__ == '__main__':
-    eu = Euler(f, 1, 0, 0.5, 0.025, y_hat)
-    ieu = ImprovedEuler(f, 1, 0, 0.5, 0.05, y_hat)
-    rk = ClassicRungeKutta(f, 1, 0, 0.5, 0.1, y_hat)
-    rk.iter()
+    #eu = Euler(f, 1, 0, 0.5, 0.025, y_hat)
+    #ieu = ImprovedEuler(f, 1, 0, 0.5, 0.05, y_hat)
+    #rk = ClassicRungeKutta(f, 1, 0, 0.5, 0.1, y_hat)
+    rk1 = ClassicRungeKutta(f1,
+                            1,
+                            0,
+                            10,
+                            0.1,
+                            y_hat1,
+                            name='Practice1 h=0.1.txt')
+    rk2 = ClassicRungeKutta(f1,
+                            1,
+                            0,
+                            10,
+                            0.01,
+                            y_hat1,
+                            name='Practice1 h=0.01.txt')
+    rk3 = ClassicRungeKutta(f2,
+                            1 / 3,
+                            0,
+                            3,
+                            0.02,
+                            y_hat2,
+                            name='Practice2 h=0.02.txt')
+    rk1.iter()
+    rk2.iter()
+    rk3.iter()
